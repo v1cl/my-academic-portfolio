@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <a href="index.html" class="logo">Student Portfolio.</a>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Me</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="planner.html">Planner</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-section">
+            <h1>Let's get in <span class="highlight-word">touch</span>..</h1>
+            <p>If you have any questions or would just like to chat, feel free to reach out :)</p>
+
+            <form action="#" method="post" class="contact-form">
+
+                <div class="form-group">
+                    <label for="user-name">Name:</label>
+                    <input type="text" id="user-name" name="user-name" required placeholder="Your Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="user-email">Email:</label>
+                    <input type="email" id="user-email" name="user-email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="user-phone">Phone:</label>
+                    <input type="tel" id="user-phone" name="user-phone" required placeholder="+1234567890">
+                </div>
+
+                <div class="form-group">
+                    <label for="user-message">Message:</label>
+                    <textarea id="user-message" name="user-message" rows="5" required placeholder="Your message here..."></textarea>
+                </div>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <div class="music-widget" id="music-widget">
+        <audio id="bg-audio" loop src="Media/Cafuné - Tek It (Lofi Chill Remix) [5aUQsvXl3qk].mp3"></audio>
+        <div class="music-progress-bar">
+            <div class="music-progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="music-inner">
+            <span class="music-note">♪</span>
+            <span class="music-title">Cafuné - Tek It</span>
+            <button class="music-toggle" id="play-btn" type="button">▶</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const widget = document.getElementById('music-widget');
+            const audio = document.getElementById('bg-audio');
+            const playBtn = document.getElementById('play-btn');
+            const progressFill = document.getElementById('progress-fill');
+
+            function updateButton() {
+                if (playBtn) {
+                    playBtn.textContent = audio && !audio.paused ? '❚❚' : '▶';
+                }
+            }
+
+            window.togglePlay = () => {
+                if (!audio) return;
+
+                if (audio.paused) {
+                    audio.play().catch(() => {});
+                } else {
+                    audio.pause();
+                }
+
+                updateButton();
+            };
+
+            if (widget) {
+                widget.classList.add('visible');
+            }
+
+            if (audio) {
+                updateButton();
+
+                audio.addEventListener('timeupdate', () => {
+                    if (!audio.duration) return;
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    if (progressFill) {
+                        progressFill.style.width = `${progress}%`;
+                    }
+                });
+
+                audio.addEventListener('play', updateButton);
+                audio.addEventListener('pause', updateButton);
+            }
+
+            if (playBtn) {
+                playBtn.addEventListener('click', window.togglePlay);
+            }
+        });
+    </script>
+
+    <footer>
+        <p>&copy; Ayoola Emmanuel 2026. CSC 106 Project. </p>
+    </footer>
+    <script src="contact.js"></script>
+</body>
+</html>
